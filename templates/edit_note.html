@@ -1,0 +1,37 @@
+<!-- edit_note.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Note and Rating</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Review Website</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container mt-5">
+        <h1>Edit Travel Note</h1>
+        <form method="post" action="/edit_note/{{ note_index }}">
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" class="form-control" id="country" name="country" value="{{ note['country'] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="note">Note</label>
+                <textarea class="form-control" id="note" name="note" rows="4" required>{{ note['note'] }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="rating">Rating</label>
+                <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" value="{{ note['rating'] }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-3d">Update</button>
+        </form>
+    </div>
+</body>
+</html>

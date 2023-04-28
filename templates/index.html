@@ -1,0 +1,49 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Notes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">My Travel Blog</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/add_note">Add Travel Notes</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container mt-5">
+        <h1>Visited {{ count_countries_visited() }} Countries</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Country</th>
+                    <th>Travel Notes</th>
+                    <th>Rating</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through travel notes and display them in table rows -->
+                {% for travel_note in travel_notes %}
+                {% if travel_note['note'] != '' %}
+                <tr>
+                    <td><a href="/countries?country={{ travel_note['country'] }}">{{ travel_note['country'] }}</a></td>
+                    <td>{{ travel_note['note'] }}</td>
+                    <td>{{ travel_note['rating'] }}</td>
+                    <td>
+                        <a href="/edit_note/{{ loop.index0 }}" class="btn btn-primary btn-lg btn-3d"><i class="fa fa-edit"></i>Edit</a>
+                        <a href="/delete_note/{{ loop.index0 }}" class="btn btn-danger btn-lg btn-3d"><i class="fa fa-trash"></i>Delete</a>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

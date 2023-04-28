@@ -1,0 +1,45 @@
+<!-- countries.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Country Details</title>
+</head>
+<body>
+    <h1>Country Details</h1>
+    <h2 id="country-name"></h2>
+    <ul id="country-info">
+        <img id="flag" src="" alt="Country Flag">
+        <li><strong>Capital:</strong> <span id="capital"></span></li>
+        <li><strong>Region:</strong> <span id="region"></span></li>
+        <li><strong>Population:</strong> <span id="population"></span></li>
+        <li><strong>Area:</strong> <span id="area"></span> km<sup>2</sup></li>
+        <li><strong>Languages:</strong> <span id="languages"></span></li>
+        <li><strong>Currency:</strong> <span id="currency"></span></li>
+    </ul>
+    <a href="/">Back to Countries List</a>
+    <script>
+        // Retrieve country data from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const country = urlParams.get('country');
+        
+        // Fetch country data from restcountries API
+        fetch(`https://restcountries.com/v3.1/name/${country}`)
+            .then(response => response.json())
+            .then(data => {
+                const countryData = data[0];
+                // Update HTML elements with country information
+                document.getElementById('flag').src = countryData.flags.png;
+                document.getElementById('country-name').textContent = countryData.name.common;
+                document.getElementById('capital').textContent = countryData.capital;
+                document.getElementById('region').textContent = countryData.region;
+                document.getElementById('population').textContent = countryData.population.toLocaleString();
+                document.getElementById('area').textContent = countryData.area.toLocaleString();
+                document.getElementById('languages').textContent = Object.values(countryData.languages).join(', ');
+                document.getElementById('currency').textContent = Object.keys(countryData.currencies).map(currencyCode => countryData.currencies[currencyCode].name).join(', ');
+
+            })
+            .catch(error => console.error(error));
+    </script>
+</body>
+</html>
